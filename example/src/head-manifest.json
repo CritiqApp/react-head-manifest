@@ -1,0 +1,23 @@
+{
+    "defaultTitle": "Test",
+    "defaultMeta": [{
+        "name": "test",
+        "content": "ahhhh"
+    }],
+    "globalMeta": [],
+    "paths": {
+        "/": {
+            "title": "Home",
+            "meta": [
+                { "name": "Test123", "content": "Content" }
+            ],
+            "resolver": "test"
+        },
+        "/:other": {
+            "title": "Variable :other",
+            "meta": [
+               
+            ]
+        }
+    }
+}

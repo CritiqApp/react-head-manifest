@@ -6,24 +6,56 @@
 
 ## Install
 
+This project requires `react-router-dom` to be installed.
+
 ```bash
-npm install --save react-head-manifest
+yarn add react-router-dom
+```
+
+```bash
+yarn add react-head-manifest
 ```
 
 ## Usage
 
+Using React Head Manifest is as easy as creating/importing a `head-manifest.json` file with your manifest data, and using the `useHeadManifest` hook provided by the library.
+
+Example:
 ```tsx
-import React, { Component } from 'react'
+import React from 'react'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+} from 'react-router-dom'
+import useHeadManifest from 'react-head-manifest'
 
-import MyComponent from 'react-head-manifest'
-import 'react-head-manifest/dist/index.css'
+// Load your head manifest file
+const headManifest = require('./head-manifest.json');
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+// Base App component
+const App = () => {
+    return (
+        <Router>
+            <RoutedApp />
+        </Router>
+    )
 }
+
+// Routed app component, has access to react-router-dom
+const RoutedApp = () => {
+
+    useHeadManifest(headManifest)
+
+    return ( ... )
+}
+
+export default App
+
 ```
+
+This project is intended for use with our sister project [Laravel Head Manifest](https://github.com/CritiqApp/laravel-head-manifest), 
 
 ## License
 

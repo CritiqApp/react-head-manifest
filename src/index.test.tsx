@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import useHeadManifest from '.'
 
-describe('ExampleComponent', () => {
+describe('useHeadManifest', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(useHeadManifest).toBeTruthy()
   })
 })
