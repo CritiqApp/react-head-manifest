@@ -1,6 +1,6 @@
 {
   "name": "react-head-manifest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Define your SPA head information from a single manifest file",
   "author": "NichoCM",
   "license": "MIT",
