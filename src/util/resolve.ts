@@ -1,5 +1,4 @@
 import { Manifest, ManifestMeta, PathResolution } from '../types'
-import FetchPathResolution from './FetchPathResolution'
 
 /**
  * Resolve the manifest
@@ -11,7 +10,7 @@ export default function resolve(
   manifest: Manifest,
   path: string,
   domainResolver?: string
-): PathResolution {
+): { promise: Promise<PathResolution>, controller?: AbortController } {
   const pathSplits = path.split('/').filter((e) => e !== '')
 
   // If there are paths in the manifest, find the matching path
@@ -40,10 +39,17 @@ export default function resolve(
 
         // If a resolver is defined for this path, use the network mode
         if (resolved.resolver && domainResolver) {
-          result.promise = new FetchPathResolution(domainResolver, path)
+          const controller = new AbortController()
+          const promise = fetch(domainResolver + '?path=' + path, {
+            signal: controller.signal,
+            method: 'GET',
+            cache: 'no-cache'
+          }).then((res) => res.json() as Promise<PathResolution>)
+          return { promise, controller }
         }
-
-        return result
+        return {
+          promise: new Promise<PathResolution>((resolve) => resolve(result))
+        }
       }
     }
   }
@@ -54,9 +60,13 @@ export default function resolve(
   )
 
   return {
-    title: manifest.defaultTitle,
-    meta,
-    vars: {}
+    promise: new Promise((resolve) =>
+      resolve({
+        title: manifest.defaultTitle,
+        meta,
+        vars: {}
+      })
+    )
   }
 }
 

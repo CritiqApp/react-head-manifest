@@ -20,11 +20,8 @@ export default function useHeadManifest(
   React.useEffect(() => {
     if (manifest) {
       const resolved = resolve(manifest, location.pathname, domainResolver)
-      setResolvedPath(resolved)
-      if (resolved.promise) {
-        resolved.promise.then(setResolvedPath)
-      }
-      return () => resolved.promise?.cancel()
+      resolved.promise.then(setResolvedPath)
+      return () => resolved.controller && resolved.controller?.abort()
     }
     return undefined
   }, [location, manifest])
