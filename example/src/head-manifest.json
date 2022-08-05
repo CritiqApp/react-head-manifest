@@ -13,6 +13,9 @@
             ],
             "resolver": "test"
         },
+        "/:two/:variables": {
+            "title": ":two :variables"
+        },
         "/:other": {
             "title": "Variable :other",
             "meta": [
